@@ -15,28 +15,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 @RestController
 //a validalas meg nem helyes
 //kiváltja az article-t a pathban mindenhol máshol
 @RequestMapping(path="articles")
 public class MainController {
-	private final List<ArticlesDto> articles = new ArrayList<>();
 	
+	private final ArticleService articleService;
+	
+	public MainController(ArticleService articleService) {
+		this.articleService = articleService;
+	}
+
 	//A getMapping metódust jelöl, hogy van-e controlleren belül osztály és vannak-e benne metódusok, útvonal megjelölés
+	
 	@GetMapping(path="", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public List<ArticlesDto> allArticles(){
-		return articles;
+	
 	}
 	
 	@GetMapping(path="/{id}", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public ArticlesDto articlesById(@PathVariable("id") String id){
 		int found = findArticleById(id);
-		return articles.get(found);
+		return articleService.get(found);
 	}
 	
 	@PostMapping(path="")
 	public void newArticle(@Valid @RequestBody ArticlesDto articleDto) {
-		articles.add(articleDto);
+		articleService.save(articleDto);
 	}
 	
 	private int findArticleById(String id) {
@@ -51,7 +59,7 @@ public class MainController {
 	}
 	
 	@PutMapping(path="/{id}")
-	public void replaceArticle(@PathVariable("id") String id,@Valid @RequestBody ArticlesDto articleDto) {
+	public void replaceArticle(@PathVariable("id") String id, @Valid @RequestBody ArticlesDto articleDto) {
 		int found = findArticleById(id);
 		
 		if(found!=-1) {
@@ -62,12 +70,8 @@ public class MainController {
 	}
 	
 	@DeleteMapping(path="/{id}")
-	public void deleteArticle(@PathVariable("id") String id) {
-		int found = findArticleById(id);
-		
-		if(found!=-1) {
-			articles.remove(found);
-		}
+	public void deleteArticle(@PathVariable("id") Long id) {
+		articleService.deleteById(id);
 	}
 	
 }

@@ -2,10 +2,15 @@ package hu.me.iit.webalk.first;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class ArticlesDto {
 	
+	@NotNull
+	private Long id;
+	
 	@NotBlank
+	@NotNull
 	private String author;
 	@NotBlank
 	private String title;
@@ -13,10 +18,10 @@ public class ArticlesDto {
 	private Integer pages;
 	
 	
+	
 	public String getAuthor() {
 		return author;
 	}
-	@NotBlank
 	public void setAuthor(String author) {
 		this.author = author;
 	}
@@ -33,10 +38,20 @@ public class ArticlesDto {
 		this.pages = pages;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
-		return "Articles [author=" + author + ", title=" + title + ", pages=" + pages + "]";
+		return "ArticlesDto [id=" + id + ", author=" + author + ", title=" + title + ", pages=" + pages
+				+ ", getAuthor()=" + getAuthor() + ", getTitle()=" + getTitle() + ", getPages()=" + getPages()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
+	
 	
 	
 	

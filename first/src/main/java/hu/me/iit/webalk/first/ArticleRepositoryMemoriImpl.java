@@ -3,6 +3,9 @@ package hu.me.iit.webalk.first;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ArticleRepositoryMemoriImpl implements ArticleRepository {
 	private final List<ArticlesDto> articles = new ArrayList<>();
 	
@@ -38,6 +41,7 @@ public class ArticleRepositoryMemoriImpl implements ArticleRepository {
 		}else {
 			articles.add(articleDto);
 		}
+		return null;
 	}
 
 	@Override
@@ -48,7 +52,4 @@ public class ArticleRepositoryMemoriImpl implements ArticleRepository {
 			articles.remove(found);
 		}
 	}
-	
-	
-
 }

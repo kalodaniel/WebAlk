@@ -33,40 +33,23 @@ public class MainController {
 	
 	@GetMapping(path="", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public List<ArticlesDto> allArticles(){
-	
+		return articleService.findAll();
 	}
 	
 	@GetMapping(path="/{id}", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
-	public ArticlesDto articlesById(@PathVariable("id") String id){
-		int found = findArticleById(id);
-		return articleService.get(found);
+	public ArticlesDto articlesById(@PathVariable("id") Long id){
+		return articleService.getById(id);
 	}
 	
+
 	@PostMapping(path="")
 	public void newArticle(@Valid @RequestBody ArticlesDto articleDto) {
 		articleService.save(articleDto);
 	}
 	
-	private int findArticleById(String id) {
-		int found = -1;
-		for (int i = 0; i < articles.size(); i++) {
-			if (articles.get(i).getTitle().equals(id)) {
-				found = i;
-				break;
-			}
-		}
-		return found;
-	}
-	
-	@PutMapping(path="/{id}")
-	public void replaceArticle(@PathVariable("id") String id, @Valid @RequestBody ArticlesDto articleDto) {
-		int found = findArticleById(id);
-		
-		if(found!=-1) {
-			ArticlesDto foundArticle = articles.get(found);
-			foundArticle.setAuthor(articleDto.getAuthor());
-			foundArticle.setPages(articleDto.getPages());
-		}
+	@PutMapping(path="/")
+	public void replaceArticle(@Valid @RequestBody ArticlesDto articleDto) {
+		articleService.save(articleDto);
 	}
 	
 	@DeleteMapping(path="/{id}")

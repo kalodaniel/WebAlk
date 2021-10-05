@@ -2,12 +2,12 @@ package hu.me.iit.webalk.first;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ArticleServiceImpl implements ArticleService {
-	
 	private final int MAXIMUM_ARTICLE_COUNT=10;
 	private final ArticleRepository articleRepository;
-	
-	
 
 	public ArticleServiceImpl(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
@@ -33,7 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void deleteById(Long id) {
-
+		articleRepository.deleteById(id);
 	}
 
 }

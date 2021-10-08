@@ -1,60 +1,39 @@
 package hu.me.iit.webalk.first;
 
-import java.awt.PageAttributes.MediaType;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-
+import java.util.List;
 
 @RestController
-//a validalas meg nem helyes
-//kiváltja az article-t a pathban mindenhol máshol
-@RequestMapping(path="articles")
+@RequestMapping(path="article")
 public class MainController {
-	
+
 	private final ArticleService articleService;
-	
+
 	public MainController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
 
-	//A getMapping metódust jelöl, hogy van-e controlleren belül osztály és vannak-e benne metódusok, útvonal megjelölés
-	
-	@GetMapping(path="", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
-	public List<ArticlesDto> allArticles(){
+	@GetMapping(path="", produces= MediaType.APPLICATION_JSON_VALUE)
+	public List<ArticleDto> allArticles() {
 		return articleService.findAll();
 	}
-	
-	@GetMapping(path="/{id}", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
-	public ArticlesDto articlesById(@PathVariable("id") Long id){
-		return articleService.getById(id);
-	}
-	
 
 	@PostMapping(path="")
-	public void newArticle(@Valid @RequestBody ArticlesDto articleDto) {
+	public void newArticle(@RequestBody @Valid ArticleDto articleDto) {
 		articleService.save(articleDto);
 	}
-	
+
 	@PutMapping(path="/")
-	public void replaceArticle(@Valid @RequestBody ArticlesDto articleDto) {
+	public void replaceArticle(@RequestBody @Valid ArticleDto articleDto) {
 		articleService.save(articleDto);
 	}
-	
-	@DeleteMapping(path="/{id}")
+
+	@DeleteMapping (path="/{id}")
 	public void deleteArticle(@PathVariable("id") Long id) {
 		articleService.deleteById(id);
 	}
-	
+
 }

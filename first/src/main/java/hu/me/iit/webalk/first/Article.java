@@ -3,7 +3,7 @@ package hu.me.iit.webalk.first;
 import javax.validation.constraints.NotNull;
 
 public class Article {
-	@NotNull
+    @NotNull
     private String id;
 
     @NotNull

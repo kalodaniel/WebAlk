@@ -1,7 +1,6 @@
 package hu.me.iit.webalk.first;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

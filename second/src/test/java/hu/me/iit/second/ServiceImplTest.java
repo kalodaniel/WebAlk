@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -54,4 +55,33 @@ class ServiceImplTest {
 		verify(dependency,times(1)).helpNoParameterReturnValue();
 		assertEquals(FIVE, result);
 	}
+	
+	  @Test
+	  void callHelpAndPassParameter5Test() {
+		  // GIVEN
+		  final int FIVE = 5;
+
+		  // WHEN
+		  service.callHelpAndPassParameter5();
+
+		  // THEN
+		  ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
+
+		  verify(dependency, times(1)).helpWithParameterNoReturnValue(captor.capture());
+		  assertEquals(FIVE,captor.getValue());
+	  }
+	  
+	  @Test
+	  void getImportantAbstractTest() {
+		  //GIVEN
+		  final String expected = "Try...";
+		  final String sentence = "Trying the method with this sentence";
+		  //WHEN
+		  String result = service.getImportantAbstract(sentence);
+		  //THEN
+		  ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+
+		  verify(dependency, times(1)).Important(captor.capture());
+		  assertEquals(expected,captor.getValue());
+	  }
 }

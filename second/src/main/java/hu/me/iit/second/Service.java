@@ -5,5 +5,6 @@ public interface Service {
 	void calculate();
 	int helpNoParameterReturnValue();
 	int callHelpAndUseReturnValue();
+	String getImportantAbstract(String string);
 	
 }

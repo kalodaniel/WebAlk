@@ -21,67 +21,73 @@ class ServiceImplTest {
 	
 	@InjectMocks ServiceImpl service;
 	
-	@Test
-	void calculateTest() {
-		//GIVEN
-		
-		//WHEN
-		service.calculate();
-		
-		//THEN
-		verify(dependency, times(1)).helpNoParameterNoReturnValue();
-	}
-	
-	@Test
-	void returnWithFiveTest() {
-		//GIVEN
-		final int FIVE=5;
-		
-		//WHEN
-		int result = service.returnWithFive();
-		
-		//THEN
-		assertEquals(FIVE, result);
-	}
-	
-	@Test
-	void dependencyReturnValueIsUsed() {
-		//GIVEN
-		final int FIVE=5;
-		when(dependency.helpNoParameterReturnValue()).thenReturn(FIVE);
-		//WHEN
-		int result = service.callHelpAndUseReturnValue();
-		//THEN
-		verify(dependency,times(1)).helpNoParameterReturnValue();
-		assertEquals(FIVE, result);
-	}
-	
+	 @Test
+	  void calculateTest() {
+	     // GIVEN
+
+	     // WHEN
+	     service.calculate();
+
+	     // THEN
+	     verify(dependency, times(1)).helpNoParameterNoReturnValue();
+	  }
+
+	 @Test
+	 void return5Test() {
+	     // GIVEN
+	     final int FIVE = 5;
+
+	     // WHEN
+	     int result = service.return5();
+
+	     // THEN
+	     assertEquals(FIVE, result);
+	 }
+
+	 @Test
+	 void dependencyReturnValueIsUsedTest() {
+	     // GIVEN
+	     final int FIVE = 5;
+
+	     when(dependency.helpNoParameterReturnValue()).thenReturn(FIVE);
+
+	     // WHEN
+	     int result = service.callHelpAndUseReturnValue();
+
+	     // THEN
+	     verify(dependency, times(1)).helpNoParameterReturnValue();
+	     assertEquals(FIVE, result);
+	 }
+
+
 	  @Test
 	  void callHelpAndPassParameter5Test() {
-		  // GIVEN
-		  final int FIVE = 5;
+	     // GIVEN
+	     final int FIVE = 5;
 
-		  // WHEN
-		  service.callHelpAndPassParameter5();
+	     // WHEN
+	     service.callHelpAndPassParameter5();
 
-		  // THEN
-		  ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
+	     // THEN
+	     ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
 
-		  verify(dependency, times(1)).helpWithParameterNoReturnValue(captor.capture());
-		  assertEquals(FIVE,captor.getValue());
+	     verify(dependency, times(1)).helpWithParameterNoReturnValue(captor.capture());
+	     assertEquals(FIVE,captor.getValue());
 	  }
 	  
 	  @Test
 	  void getImportantAbstractTest() {
 		  //GIVEN
 		  final String expected = "Try...";
+		  final String fromImportant = "<b>Try...</b>";
 		  final String sentence = "Trying the method with this sentence";
+		  when(dependency.Important(expected)).thenReturn(fromImportant);
 		  //WHEN
 		  String result = service.getImportantAbstract(sentence);
 		  //THEN
 		  ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-
 		  verify(dependency, times(1)).Important(captor.capture());
 		  assertEquals(expected,captor.getValue());
+		  assertEquals(fromImportant, result);
 	  }
 }

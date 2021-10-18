@@ -9,34 +9,26 @@ public class ServiceImpl implements Service {
 	final int MAX_CHARACTER_NUMBER = 3;
 	
 	public ServiceImpl(Dependency dependency) {
-		this.dependency=dependency;
+	    this.dependency = dependency;
 	}
-	
+
 	@Override
 	public void calculate() {
-		dependency.helpNoParameterNoReturnValue();
+	    dependency.helpNoParameterNoReturnValue();
 	}
-	
-	public int returnWithFive() {
-		return 5;
+
+
+	public int return5() {
+	    return 5;
 	}
-	
-	@Override
+
 	public int callHelpAndUseReturnValue() {
-		return dependency.helpNoParameterReturnValue();
+	    return dependency.helpNoParameterReturnValue();
 	}
 
 	public void callHelpAndPassParameter5() {
 		dependency.helpWithParameterNoReturnValue(5);
 	}
-
-	@Override
-	public int helpNoParameterReturnValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
 	public String getImportantAbstract(String input) {
 		String firstThreeChars, charsWithDots;
 		if(input.length()>MAX_CHARACTER_NUMBER) {

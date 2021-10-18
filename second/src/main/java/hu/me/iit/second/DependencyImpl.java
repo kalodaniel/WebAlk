@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service;
 public class DependencyImpl implements Dependency {
 
 	@Override
-	public void helpNoParameterNoReturnValue() {
-	}
+	public void helpNoParameterNoReturnValue() {}
 
 	@Override
 	public int helpNoParameterReturnValue() {
 		return 45;
 	}
-	
+
 	@Override
 	public void helpWithParameterNoReturnValue(int a) {
-		
+
 	}
 	
 	@Override

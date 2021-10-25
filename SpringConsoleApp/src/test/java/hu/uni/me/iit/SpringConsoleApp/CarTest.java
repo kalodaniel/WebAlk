@@ -12,9 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import hu.uni.me.iit.SpringConsoleApp.impl.ElectricEngine;
 import hu.uni.me.iit.SpringConsoleApp.impl.InsideBurnEngine;
 
+@ExtendWith(MockitoExtension.class)
 class CarTest {
 
-	@Mock Wheels[] wheels;
+	@Mock Wheels wheels;
 	@Mock Engine engine;
 	@InjectMocks Car car;
 	
@@ -59,21 +60,32 @@ class CarTest {
 	}
 		
 	@Test
-	void toStringCarTest() {
+	void isEngingeCalledTest() {
 		//GIVEN
-		final String wheelsReturn = "[width=15/20 R 17]";
+		final String expected = "Car [engine=Engine [horsePow=160, ccm=120], wheels=[width=205/65 R 16], type=Ford]";
+		final String wheelsReturn = "[width=205/265 R 16]";
 		final String engineReturn = "Engine [horsePow=160, ccm=120]";
 		final String type = "Ford";
-		when(wheels.toString()).thenReturn(wheelsReturn);
+		//when(wheels.toString()).thenReturn(wheelsReturn);
 		when(engine.toString()).thenReturn(engineReturn);
-		Car car = new Car(engine,wheels,type);
-		
+		Car car = new Car(engine,get4Wheels(),type);
 		//WHEN
 		String result = car.toString();
-		System.out.println(result);
 		//THEN
-		assertEquals("calami", result);
+		assertEquals(expected, result);
+	}
+	
+	private static Wheels[] get4Wheels(){
+		Wheels[] wheels = new Wheels[4];
 		
+		for (int i = 0; i < wheels.length; i++) {
+			wheels[i] = new hu.uni.me.iit.SpringConsoleApp.impl.Wheels(205,16,65);
+		}
+		return wheels;
+	}
+	
+	@Test
+	void isWheelsCalled() {
 		
 	}
 

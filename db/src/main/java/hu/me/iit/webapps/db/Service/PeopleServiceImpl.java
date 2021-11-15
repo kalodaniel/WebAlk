@@ -2,9 +2,14 @@ package hu.me.iit.webapps.db.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import hu.me.iit.webapps.db.NoSuchEntityException;
 import hu.me.iit.webapps.db.Repository.PeopleRepository;
 
 @Service
@@ -33,6 +38,37 @@ public class PeopleServiceImpl implements PeopleService {
 
 	@Override
 	public void deleteById(Long id) {
-		peopleRepository.deleteById(id);
+		try {
+			peopleRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new NoSuchEntityException(id);
+		}
+	}
+
+	@Override
+	public People getById(Long id) {
+		Optional<hu.me.iit.webapps.db.Repository.People> optionalPeople = peopleRepository.findById(id);
+		if(optionalPeople.isEmpty()) {
+			throw new NoSuchEntityException(id);
+		}
+		return new People(optionalPeople.get());
+	}
+
+	@Override
+	public void save(People people) {
+		Optional<hu.me.iit.webapps.db.Repository.People> optionalPeople = peopleRepository.findById(people.getId());
+		if(optionalPeople.isEmpty()) {
+			throw new NoSuchEntityException(people.getId());
+		}
+		peopleRepository.save(people.toEntity());
+	}
+
+	@Override
+	public Iterable<? extends People> findAgeOrGreater(int age) {
+		List<People> rv = new ArrayList<>();
+		for (hu.me.iit.webapps.db.Repository.People people : peopleRepository.findAllByAgeGreaterThanEqual(age)) {
+			rv.add(new People(people));
+		}
+		return rv;
 	}
 }

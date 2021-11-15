@@ -2,7 +2,6 @@ package hu.me.iit.webapps.db.Controller;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import hu.me.iit.webapps.db.Service.People;
 //A feladata, hogy ne engedjen be nem megengedett kéréseket

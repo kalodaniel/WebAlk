@@ -1,5 +1,6 @@
 package hu.me.iit.webapps.db.Service;
 
+
 public class People {
 	
 	private Long id;
@@ -46,7 +47,7 @@ public class People {
 		this.name = name;
 		this.age = age;
 	}
-	
+
 	public hu.me.iit.webapps.db.Repository.People toEntity(){
 		return new hu.me.iit.webapps.db.Repository.People(id,name,age);
 	}

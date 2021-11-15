@@ -1,5 +1,6 @@
 package hu.me.iit.webapps.db.Controller;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -18,7 +19,7 @@ public class PeopleDto {
 	private Long id;
 	@NotEmpty
 	private String name;
-	@Size(min=18)
+	@Min(18)
 	private int age;
 	public Long getId() {
 		return id;
@@ -37,5 +38,9 @@ public class PeopleDto {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public People toPeople() {
+		return new People(id,name,age);
 	}
 }

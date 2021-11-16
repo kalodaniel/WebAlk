@@ -52,4 +52,8 @@ public class People {
 		return new hu.me.iit.webapps.db.Repository.People(id,name,age);
 	}
 	
+	public hu.me.iit.webapps.db.Repository.People toEntityWithoutName(){
+		return new hu.me.iit.webapps.db.Repository.People(id,age);
+	}
+	
 }

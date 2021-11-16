@@ -14,4 +14,5 @@ public interface PeopleService {
 
 	Iterable<? extends People> findAgeOrGreater(int age);
 	
+	void patch(People people);
 }

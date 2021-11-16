@@ -71,4 +71,26 @@ public class PeopleServiceImpl implements PeopleService {
 		}
 		return rv;
 	}
+
+	@Override
+	public void patch(People people) {
+		Optional<hu.me.iit.webapps.db.Repository.People> optionalPeople = peopleRepository.findById(people.getId());
+		if(optionalPeople.isEmpty()) {
+			throw new NoSuchEntityException(people.getId());
+		}
+		else if(people.getName()==null) {
+			optionalPeople.get().setAge(people.getAge());
+			peopleRepository.save(optionalPeople.get());
+		}
+		else if(people.getAge()==0) {
+			optionalPeople.get().setName(people.getName());
+			peopleRepository.save(optionalPeople.get());
+		}
+		else {
+			System.out.println(people.getName());
+			peopleRepository.save(people.toEntity());
+		}
+	}
+
+	
 }

@@ -46,6 +46,10 @@ public class People {
 		this.name = name;
 		this.age = age;
 	}
-	
+
+	public People(Long id, int age) {
+		this.id=id;
+		this.age=age;
+	}
 	
 }
